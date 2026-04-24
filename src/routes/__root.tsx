@@ -33,9 +33,13 @@ export const Route = createRootRoute({
       { name: "description", content: "GetSeen builds professional websites for small businesses. Get noticed, get customers, get online — fast." },
       { name: "author", content: "GetSeen" },
       { property: "og:title", content: "GetSeen — Websites for Small Businesses" },
-      { property: "og:description", content: "Professional websites that help small businesses get noticed online." },
+      { property: "og:description", content: "GetSeen builds professional websites for small businesses. Get noticed, get customers, get online — fast." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "GetSeen — Websites for Small Businesses" },
+      { name: "twitter:description", content: "GetSeen builds professional websites for small businesses. Get noticed, get customers, get online — fast." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15f220ab-87cc-4d3d-9b84-5fcbbc7f2f80" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/15f220ab-87cc-4d3d-9b84-5fcbbc7f2f80" },
     ],
     links: [
       {
