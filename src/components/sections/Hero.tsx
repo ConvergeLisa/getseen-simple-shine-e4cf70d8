@@ -15,14 +15,14 @@ export function Hero() {
           </div>
           <h1 className="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
             Get Your Business{" "}
-            <span className="text-gradient">Seen Online</span>
+            <span className="text-primary">Seen</span> Online
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
             We build professional websites that help small businesses get noticed
             and get customers — fast.
           </p>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Button asChild variant="hero" size="xl">
+            <Button asChild size="xl">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                 Message Us on WhatsApp
                 <ArrowRight />
