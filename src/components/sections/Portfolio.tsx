@@ -1,7 +1,7 @@
 import { SectionHeader } from "./SectionHeader";
-import salon from "@/assets/portfolio-salon.jpg";
+import salon from "@/assets/portfolio-salon.png";
 import fitness from "@/assets/portfolio-fitness.jpg";
-import business from "@/assets/portfolio-business.jpg";
+import business from "@/assets/portfolio-business.png";
 
 const projects = [
   { img: salon, title: "Beauty Salon", tag: "Booking-ready" },
