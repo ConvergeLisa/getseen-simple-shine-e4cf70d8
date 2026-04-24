@@ -78,7 +78,7 @@ export function Pricing() {
             </ul>
             <Button
               asChild
-              variant={t.featured ? "hero" : "outline"}
+              variant={t.featured ? "default" : "outline"}
               size="lg"
               className="mt-10 w-full"
             >
