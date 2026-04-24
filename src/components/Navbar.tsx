@@ -7,6 +7,7 @@ const links = [
   { href: "#why", label: "Why Us" },
   { href: "#pricing", label: "Pricing" },
   { href: "#portfolio", label: "Work" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function Navbar() {
