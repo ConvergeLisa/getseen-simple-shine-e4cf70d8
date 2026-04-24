@@ -6,7 +6,7 @@ import { WHATSAPP_LINK } from "@/components/WhatsAppButton";
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 gradient-soft opacity-70" />
+      <div className="pointer-events-none absolute inset-0 gradient-soft opacity-50" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:pb-32 lg:pt-24">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur">
