@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-visibility.png";
+import heroImage from "@/assets/hero-visibility-v2.png";
 import { WHATSAPP_LINK } from "@/components/WhatsAppButton";
 
 export function Hero() {
