@@ -7,6 +7,7 @@ import { WhyUs } from "@/components/sections/WhyUs";
 import { Pricing } from "@/components/sections/Pricing";
 import { Process } from "@/components/sections/Process";
 import { Portfolio } from "@/components/sections/Portfolio";
+import { Contact } from "@/components/sections/Contact";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { FloatingWhatsApp } from "@/components/WhatsAppButton";
@@ -43,6 +44,7 @@ function Index() {
         <Pricing />
         <Process />
         <Portfolio />
+        <Contact />
         <FinalCTA />
       </main>
       <Footer />
