@@ -37,8 +37,8 @@ export function Hero() {
               {[0, 1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-8 w-8 rounded-full border-2 border-background gradient-primary"
-                  style={{ opacity: 0.6 + i * 0.1 }}
+                  className="h-8 w-8 rounded-full border-2 border-background bg-primary"
+                  style={{ opacity: 0.5 + i * 0.12 }}
                 />
               ))}
             </div>
