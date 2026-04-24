@@ -47,13 +47,13 @@ export function Hero() {
         </div>
 
         <div className="relative animate-fade-in delay-200">
-          <div className="absolute -inset-10 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute -inset-10 rounded-full bg-primary/5 blur-3xl" />
           <img
             src={heroImage}
-            alt="Illustration of a website growing in visibility online"
-            width={1024}
+            alt="Professional websites for small businesses shown on laptop and phone"
+            width={1280}
             height={1024}
-            className="relative mx-auto w-full max-w-lg animate-float"
+            className="relative mx-auto w-full max-w-xl"
           />
         </div>
       </div>
