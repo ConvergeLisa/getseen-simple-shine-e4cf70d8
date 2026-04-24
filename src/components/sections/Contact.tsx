@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { SectionHeader } from "./SectionHeader";
 import { Mail, Send } from "lucide-react";
 
@@ -61,15 +60,16 @@ export function Contact() {
 
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("leads").insert({
-        name: result.data.name,
-        email: result.data.email,
-        phone: result.data.phone || null,
-        business_name: result.data.business_name || null,
-        message: result.data.message,
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
       });
 
-      if (error) throw error;
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "Request failed");
+      }
 
       toast.success("Thanks! We'll be in touch soon.", {
         description: "Your enquiry has been received.",
