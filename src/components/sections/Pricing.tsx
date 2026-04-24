@@ -48,7 +48,7 @@ export function Pricing() {
             )}
           >
             {t.featured && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full gradient-primary px-4 py-1 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-glow">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-glow">
                 Most popular
               </span>
             )}
@@ -78,7 +78,7 @@ export function Pricing() {
             </ul>
             <Button
               asChild
-              variant={t.featured ? "hero" : "outline"}
+              variant={t.featured ? "default" : "outline"}
               size="lg"
               className="mt-10 w-full"
             >

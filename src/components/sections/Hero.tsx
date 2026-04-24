@@ -6,7 +6,7 @@ import { WHATSAPP_LINK } from "@/components/WhatsAppButton";
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 gradient-soft opacity-70" />
+      <div className="pointer-events-none absolute inset-0 gradient-soft opacity-50" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:pb-32 lg:pt-24">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur">
@@ -15,14 +15,14 @@ export function Hero() {
           </div>
           <h1 className="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
             Get Your Business{" "}
-            <span className="text-gradient">Seen Online</span>
+            <span className="text-primary">Seen</span> Online
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
             We build professional websites that help small businesses get noticed
             and get customers — fast.
           </p>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Button asChild variant="hero" size="xl">
+            <Button asChild size="xl">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                 Message Us on WhatsApp
                 <ArrowRight />
@@ -37,8 +37,8 @@ export function Hero() {
               {[0, 1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-8 w-8 rounded-full border-2 border-background gradient-primary"
-                  style={{ opacity: 0.6 + i * 0.1 }}
+                  className="h-8 w-8 rounded-full border-2 border-background bg-primary"
+                  style={{ opacity: 0.5 + i * 0.12 }}
                 />
               ))}
             </div>
