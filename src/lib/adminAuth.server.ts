@@ -48,7 +48,11 @@ export function clearAdminSessionCookie() {
 }
 
 export function getAnalyticsDashboardPassword(): string | null {
-  const value = process.env.ANALYTICS_DASHBOARD_PASSWORD;
-  if (!value || value.trim().length === 0) return null;
+  const ANALYTICS_DASHBOARD_PASSWORD = process.env.ANALYTICSDASHBOARDPASSWORD;
+  if (!ANALYTICS_DASHBOARD_PASSWORD || ANALYTICS_DASHBOARD_PASSWORD.trim().length === 0) {
+    console.error("Missing analytics dashboard env var");
+    return null;
+  }
+  const value = ANALYTICS_DASHBOARD_PASSWORD;
   return value;
 }

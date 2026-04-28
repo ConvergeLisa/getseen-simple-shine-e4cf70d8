@@ -9,12 +9,13 @@ import type { Database } from './types'
 export const requireSupabaseAuth = createMiddleware({ type: 'function' }).server(
   async ({ next }) => {
     
-    const SUPABASE_URL = process.env.SUPABASE_URL;
-    const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
+    const SUPABASE_URL = process.env.SUPABASEURL;
+    const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASEPUBLISHABLEKEY;
 
     if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+      console.error('Missing Supabase env vars');
       throw new Response(
-        'Missing Supabase environment variables. Ensure SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY are set.',
+        'Missing Supabase environment variables. Ensure SUPABASEURL and SUPABASEPUBLISHABLEKEY are set.',
         { status: 500 }
       );
     }

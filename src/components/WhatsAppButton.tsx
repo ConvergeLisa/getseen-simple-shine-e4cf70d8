@@ -1,7 +1,16 @@
 import { MessageCircle } from "lucide-react";
 import { trackEvent, trackServerEvent } from "@/lib/analytics";
 
-export const WHATSAPP_LINK = "https://wa.me/27718964644?text=Hi%20I%20want%20a%20website";
+const WHATSAPP_MESSAGE = `Hi 👋 I just saw your GetSeen website.
+
+I’m interested in getting a website for my business.
+
+Business type: 
+Location: 
+
+Can you send me a concept or more info?`;
+
+export const WHATSAPP_LINK = `https://wa.me/27718964644?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 export function FloatingWhatsApp() {
   return (
