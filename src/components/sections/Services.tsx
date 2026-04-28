@@ -42,9 +42,10 @@ export function Services() {
   return (
     <section
       id="services"
-      className="relative bg-gradient-to-b from-stone-50 via-slate-50 to-stone-100 py-24 lg:py-32"
+      className="relative bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fb_74%,#f8f7f5_100%)] py-24 lg:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(16,185,129,0.08),transparent_34%),radial-gradient(circle_at_85%_10%,rgba(34,211,238,0.14),transparent_36%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,0,0,0.03),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(16,185,129,0.06),transparent_34%),radial-gradient(circle_at_85%_10%,rgba(34,211,238,0.10),transparent_36%)]" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
           <SectionHeader
@@ -65,10 +66,10 @@ export function Services() {
                       y: -6,
                       rotate: -0.5,
                       rotateX: 1.2,
-                      boxShadow: "0 20px 45px rgba(8,145,178,0.16)",
+                      boxShadow: "0 25px 70px rgba(0,0,0,0.08), 0 10px 40px rgba(0,255,200,0.12)",
                     }
               }
-              className="group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-8 shadow-[0_10px_32px_rgba(15,23,42,0.08)] transition-smooth"
+              className="group relative overflow-hidden rounded-3xl border border-black/5 bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-smooth"
             >
               <div
                 className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-cyan-300/12 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
@@ -80,8 +81,8 @@ export function Services() {
                 <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-300/45 bg-slate-900 text-cyan-200 shadow-lg shadow-cyan-900/15">
                   <Icon className="h-6 w-6" />
                 </span>
-                <h3 className="mt-6 font-display text-2xl font-bold text-slate-900">{title}</h3>
-                <p className="mt-3 leading-relaxed text-slate-600">{desc}</p>
+                <h3 className="mt-6 font-display text-2xl font-bold text-[#0b0f14]">{title}</h3>
+                <p className="mt-3 leading-relaxed text-[#5b6b7a]">{desc}</p>
               </div>
             </motion.div>
           ))}

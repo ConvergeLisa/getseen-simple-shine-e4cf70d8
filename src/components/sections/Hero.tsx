@@ -1,19 +1,53 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageCircle, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { WHATSAPP_LINK } from "@/components/WhatsAppButton";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { trackEvent, trackServerEvent } from "@/lib/analytics";
 
 const proofChips = [
-  { label: "4.9 rating · 128 reviews", icon: Star, className: "right-4 top-4", delay: 0.22 },
-  { label: "+42% WhatsApp leads", icon: MessageCircle, className: "left-4 bottom-4", delay: 0.34 },
+  { label: "4.9 rating · 128 reviews", icon: Star, subtle: false, delay: 0.22 },
+  { label: "Built to increase enquiries", subtle: true, delay: 0.34 },
 ];
 
 const headlineWords = ["Websites", "that", "get", "local", "businesses", "seen."];
+const mockupExamples = [
+  {
+    id: "plumbing",
+    image: "/plumber.png",
+    title: "Plumbing Service Website",
+    subtitle: "Fast response. Trusted local team.",
+    pills: ["Leak repairs", "Drain cleaning", "Emergency callouts"],
+  },
+  {
+    id: "beauty",
+    image: "/beautysalon.png",
+    title: "Beauty Salon Website",
+    subtitle: "More bookings. More local clients.",
+    pills: ["Facials", "Hair styling", "Bookings"],
+  },
+  {
+    id: "fitness",
+    image: "/PT.png",
+    title: "Personal Trainer Website",
+    subtitle: "More leads. More bookings.",
+    pills: ["Training plans", "Results", "Consultations"],
+  },
+];
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
+  const [mockupIndex, setMockupIndex] = useState(0);
+  const currentMockup = mockupExamples[mockupIndex];
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const timer = window.setInterval(() => {
+      setMockupIndex((prev) => (prev + 1) % mockupExamples.length);
+    }, 4000);
+    return () => window.clearInterval(timer);
+  }, [prefersReducedMotion]);
 
   return (
     <section
@@ -98,11 +132,10 @@ export function Hero() {
               </motion.span>
             ))}
           </motion.h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-200/85 sm:text-xl">
-            We build fast, modern websites for small businesses that need more calls, more
-            WhatsApps, and more trust online.
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200/85 sm:text-xl">
+            More visibility. More trust. More customers.
           </p>
-          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <motion.div
               animate={
                 prefersReducedMotion
@@ -132,7 +165,7 @@ export function Hero() {
                     trackServerEvent("generate_lead");
                   }}
                 >
-                  Get a free concept
+                  See your website concept
                   <ArrowRight />
                 </a>
               </Button>
@@ -146,7 +179,7 @@ export function Hero() {
               <a href="#portfolio">See what we build</a>
             </Button>
           </div>
-          <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-100">
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-100">
             Mobile-first, conversion-focused, and built to win local trust
           </div>
         </Reveal>
@@ -167,27 +200,35 @@ export function Hero() {
               className="relative rounded-3xl border border-cyan-200/20 bg-slate-900/70 p-4 shadow-2xl shadow-cyan-950/40 backdrop-blur-xl"
               whileHover={prefersReducedMotion ? undefined : { y: -4, scale: 1.01 }}
             >
-              {proofChips.map((chip) => {
-                const Icon = chip.icon;
-                return (
-                  <motion.div
-                    key={chip.label}
-                    className={`absolute z-20 rounded-full border border-white/14 bg-slate-900/76 px-2.5 py-1.5 text-[11px] font-medium text-slate-100 shadow-lg shadow-cyan-950/20 backdrop-blur-md ${chip.className}`}
-                    initial={prefersReducedMotion ? undefined : { opacity: 0, y: 8 }}
-                    animate={prefersReducedMotion ? undefined : { opacity: 0.95, y: 0 }}
-                    transition={
-                      prefersReducedMotion
-                        ? undefined
-                        : { duration: 0.35, delay: chip.delay, ease: [0.22, 1, 0.36, 1] }
-                    }
-                  >
-                    <span className="mr-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-cyan-300/15 text-cyan-200">
-                      <Icon className="h-2.5 w-2.5" />
-                    </span>
-                    {chip.label}
-                  </motion.div>
-                );
-              })}
+              <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
+                {proofChips.map((chip) => {
+                  const Icon = chip.icon;
+                  return (
+                    <motion.div
+                      key={chip.label}
+                      className={`inline-flex items-center rounded-full px-2.5 py-1.5 text-[11px] font-medium backdrop-blur-md ${
+                        chip.subtle
+                          ? "border border-white/10 bg-slate-900/60 text-slate-200/90 shadow-md shadow-cyan-950/10"
+                          : "border border-white/14 bg-slate-900/76 text-slate-100 shadow-lg shadow-cyan-950/20"
+                      }`}
+                      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 8 }}
+                      animate={prefersReducedMotion ? undefined : { opacity: 0.95, y: 0 }}
+                      transition={
+                        prefersReducedMotion
+                          ? undefined
+                          : { duration: 0.35, delay: chip.delay, ease: [0.22, 1, 0.36, 1] }
+                      }
+                    >
+                      {Icon && (
+                        <span className="mr-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-cyan-300/15 text-cyan-200">
+                          <Icon className="h-2.5 w-2.5" />
+                        </span>
+                      )}
+                      {chip.label}
+                    </motion.div>
+                  );
+                })}
+              </div>
               <div className="rounded-2xl border border-white/15 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 sm:p-5">
                 <div className="mb-4 flex items-center gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
@@ -196,40 +237,56 @@ export function Hero() {
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-3">
                   <div className="relative overflow-hidden rounded-xl border border-white/10">
-                    <img
-                      src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=80"
-                      alt="Modern plumbing business website redesign concept"
-                      className="h-[14.5rem] w-full object-cover sm:h-72"
-                      loading="lazy"
-                    />
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={currentMockup.id}
+                        src={currentMockup.image}
+                        alt={`${currentMockup.title} example preview`}
+                        className="h-[14.5rem] w-full object-cover sm:h-72"
+                        loading="lazy"
+                        initial={prefersReducedMotion ? undefined : { opacity: 0 }}
+                        animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                        exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+                        transition={prefersReducedMotion ? undefined : { duration: 0.4 }}
+                      />
+                    </AnimatePresence>
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/62 via-slate-950/24 to-slate-950/20" />
-                    <div className="absolute inset-x-3 top-3 rounded-lg border border-white/18 bg-slate-950/68 px-3 py-2 backdrop-blur">
-                      <div className="flex items-center justify-between text-[10px] text-slate-300">
-                        <span className="font-semibold text-slate-100">Plumbing Website Redesign</span>
-                        <span>Mobile-first</span>
-                      </div>
-                    </div>
-                    <div className="absolute inset-x-3 top-[3.25rem] rounded-xl border border-white/14 bg-slate-950/58 p-3 backdrop-blur-sm">
-                      <p className="text-sm font-semibold text-white sm:text-base">Emergency Plumber in Joburg</p>
-                      <p className="mt-1 text-[11px] text-slate-300 sm:text-xs">
-                        Fast response. Trusted local team. Book instantly.
-                      </p>
+                    <div className="absolute inset-x-3 top-3 rounded-xl border border-white/14 bg-slate-950/58 p-3 backdrop-blur-sm">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={currentMockup.id}
+                          initial={prefersReducedMotion ? undefined : { opacity: 0 }}
+                          animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                          exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+                          transition={prefersReducedMotion ? undefined : { duration: 0.4 }}
+                        >
+                          <p className="text-sm font-semibold text-white sm:text-base">{currentMockup.title}</p>
+                          <p className="mt-1 text-[11px] text-slate-300 sm:text-xs">
+                            {currentMockup.subtitle}
+                          </p>
+                        </motion.div>
+                      </AnimatePresence>
                       <div className="mt-3 grid grid-cols-3 gap-1.5 text-[10px] font-medium text-slate-200 sm:text-[11px]">
-                        <span className="rounded-md border border-white/12 bg-white/[0.08] px-2 py-1 text-center">Drain repair</span>
-                        <span className="rounded-md border border-white/12 bg-white/[0.08] px-2 py-1 text-center">Leak fixes</span>
-                        <span className="rounded-md border border-white/12 bg-white/[0.08] px-2 py-1 text-center">Geyser help</span>
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={`${currentMockup.id}-pills`}
+                            className="col-span-3 grid grid-cols-3 gap-1.5"
+                            initial={prefersReducedMotion ? undefined : { opacity: 0 }}
+                            animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                            exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+                            transition={prefersReducedMotion ? undefined : { duration: 0.4 }}
+                          >
+                            {currentMockup.pills.map((pill) => (
+                              <span
+                                key={pill}
+                                className="rounded-md border border-white/12 bg-white/[0.08] px-2 py-1 text-center"
+                              >
+                                {pill}
+                              </span>
+                            ))}
+                          </motion.div>
+                        </AnimatePresence>
                       </div>
-                    </div>
-                    <div className="absolute bottom-16 left-3 rounded-lg border border-white/20 bg-black/45 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur">
-                      4.9 rating · 128 reviews
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-3 grid grid-cols-2 gap-2">
-                      <span className="rounded-lg border border-cyan-200/30 bg-cyan-300/15 px-2.5 py-2 text-center text-[11px] font-semibold text-cyan-100">
-                        Get Free Quote
-                      </span>
-                      <span className="flex items-center justify-center gap-1 rounded-lg border border-emerald-200/30 bg-emerald-400/15 px-2.5 py-2 text-[11px] font-semibold text-emerald-100">
-                        <MessageCircle className="h-3 w-3" /> WhatsApp
-                      </span>
                     </div>
                   </div>
                 </div>

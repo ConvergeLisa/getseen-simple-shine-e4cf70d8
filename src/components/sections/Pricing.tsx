@@ -37,9 +37,10 @@ export function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative bg-gradient-to-b from-slate-50 via-white to-stone-50 py-24 lg:py-32"
+      className="relative bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fb_72%,#f8f7f5_100%)] py-24 lg:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_20%,rgba(34,211,238,0.12),transparent_36%),radial-gradient(circle_at_15%_85%,rgba(245,158,11,0.08),transparent_38%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,0,0,0.03),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_20%,rgba(34,211,238,0.10),transparent_36%),radial-gradient(circle_at_15%_85%,rgba(245,158,11,0.06),transparent_38%)]" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
           <SectionHeader
@@ -58,7 +59,7 @@ export function Pricing() {
                 "relative flex flex-col rounded-3xl border p-8 transition-smooth",
                 t.featured
                   ? "border-cyan-300/60 bg-slate-900 text-white shadow-2xl shadow-cyan-900/25 lg:-translate-y-4 lg:scale-[1.02]"
-                  : "border-slate-200/90 bg-white text-slate-900 shadow-[0_10px_32px_rgba(15,23,42,0.08)] hover:shadow-[0_18px_40px_rgba(8,145,178,0.14)]",
+                  : "border-black/5 bg-white text-[#0b0f14] shadow-[0_20px_60px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.08),0_10px_40px_rgba(0,255,200,0.12)]",
               )}
             >
               {t.featured && (
@@ -69,7 +70,7 @@ export function Pricing() {
               <div>
                 <h3 className="font-display text-2xl font-bold">{t.name}</h3>
                 <p
-                  className={cn("mt-2 text-sm", t.featured ? "text-slate-300" : "text-slate-600")}
+                  className={cn("mt-2 text-sm", t.featured ? "text-slate-300" : "text-[#5b6b7a]")}
                 >
                   {t.desc}
                 </p>

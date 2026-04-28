@@ -28,6 +28,10 @@ function AnalyticsDashboardPage() {
   const [dashboardData, setDashboardData] = useState<AnalyticsDashboardData>(analyticsMockData);
 
   const data = useMemo(() => dashboardData, [dashboardData]);
+  const visitorsMetric = data.overview.find((metric) => metric.label === "Visitors");
+  const visitorsCount = Number((visitorsMetric?.value ?? "0").replace(/[^0-9]/g, "")) || 0;
+  const conversionTotal = data.conversions.reduce((sum, conversion) => sum + conversion.count, 0);
+  const hasMeaningfulData = visitorsCount > 0 || conversionTotal > 0;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -217,6 +221,15 @@ function AnalyticsDashboardPage() {
           </div>
         </header>
 
+        {!hasMeaningfulData ? (
+          <section className="rounded-2xl border border-white/10 bg-slate-900/70 p-4 shadow-soft backdrop-blur">
+            <p className="text-sm text-slate-300">
+              No data yet — tracking is active. Insights will appear as visitors interact with your
+              site.
+            </p>
+          </section>
+        ) : null}
+
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {data.overview.map((metric) => (
             <article
@@ -227,8 +240,17 @@ function AnalyticsDashboardPage() {
                 <p className="text-xs uppercase tracking-wide text-slate-400">{metric.label}</p>
                 <MetricDataBadge label={metric.label} />
               </div>
-              <p className="mt-3 text-2xl font-semibold text-white">{metric.value}</p>
+              <p className="mt-3 text-2xl font-semibold text-white">
+                {hasMeaningfulData
+                  ? metric.value
+                  : metric.label === "Avg time on page" || metric.label === "Engagement rate"
+                    ? "—"
+                    : "0"}
+              </p>
               <p className="mt-1 text-sm text-emerald-300">{metric.delta}</p>
+              {!hasMeaningfulData ? (
+                <p className="mt-1 text-xs text-slate-400">Waiting for data</p>
+              ) : null}
             </article>
           ))}
         </section>
@@ -236,53 +258,14 @@ function AnalyticsDashboardPage() {
         <section className="grid gap-4 lg:grid-cols-2">
           <article className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-soft backdrop-blur">
             <h2 className="text-lg font-semibold text-white">Traffic sources</h2>
-            <p className="mt-1 text-xs text-slate-400">Live Supabase first-party tracking data.</p>
-            <div className="mt-4 space-y-4">
-              {data.trafficSources.map((source) => (
-                <div key={source.source}>
-                  <div className="mb-1 flex items-center justify-between text-sm">
-                    <span className="text-slate-200">{source.source}</span>
-                    <span className="text-slate-300">
-                      {source.percent}% ({source.sessions.toLocaleString()})
-                    </span>
-                  </div>
-                  <div className="h-2 rounded-full bg-slate-800">
-                    <div
-                      className="h-2 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400"
-                      style={{ width: `${source.percent}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="mt-4 text-sm text-slate-300">
+              Coming soon — requires Google Analytics integration
+            </p>
           </article>
 
           <article className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-soft backdrop-blur">
             <h2 className="text-lg font-semibold text-white">Engagement</h2>
-            <p className="mt-1 text-xs text-slate-400">Live Supabase first-party tracking data.</p>
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full min-w-[20rem] text-left text-sm">
-                <thead className="text-slate-400">
-                  <tr>
-                    <th className="pb-2 font-medium">Top pages</th>
-                    <th className="pb-2 font-medium">Views</th>
-                    <th className="pb-2 font-medium">Time per page</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.topPages.map((page) => (
-                    <tr key={page.path} className="border-t border-white/10 text-slate-200">
-                      <td className="py-3">
-                        <p className="font-medium text-white">{page.title}</p>
-                        <p className="text-xs text-slate-400">{page.path}</p>
-                      </td>
-                      <td className="py-3">{page.views.toLocaleString()}</td>
-                      <td className="py-3">{page.avgTime}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <p className="mt-4 text-sm text-slate-300">No engagement data yet</p>
           </article>
         </section>
 
@@ -310,18 +293,9 @@ function AnalyticsDashboardPage() {
 
           <article className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-soft backdrop-blur">
             <h2 className="text-lg font-semibold text-white">Clarity summary</h2>
-            <p className="mt-1 text-xs text-slate-400">
-              External tool until Clarity API is connected.
+            <p className="mt-4 text-sm text-slate-300">
+              Session recordings and heatmaps are available in Microsoft Clarity.
             </p>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <ClarityCard
-                label="Session recordings"
-                value={data.clarity.sessionRecordings.toLocaleString()}
-              />
-              <ClarityCard label="Heatmaps" value={data.clarity.heatmaps.toLocaleString()} />
-              <ClarityCard label="Rage clicks" value={data.clarity.rageClicks.toLocaleString()} />
-              <ClarityCard label="Dead clicks" value={data.clarity.deadClicks.toLocaleString()} />
-            </div>
             <div className="mt-5">
               <a href={data.clarity.dashboardUrl} target="_blank" rel="noopener noreferrer">
                 <Button
@@ -380,14 +354,5 @@ function MetricDataBadge({ label }: { label: string }) {
     >
       {isRealMetric ? "Real" : "Sample"}
     </span>
-  );
-}
-
-function ClarityCard({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/85 p-3">
-      <p className="text-xs uppercase tracking-wide text-slate-400">{label}</p>
-      <p className="mt-2 text-xl font-semibold text-white">{value}</p>
-    </div>
   );
 }

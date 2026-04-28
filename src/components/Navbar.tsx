@@ -50,7 +50,7 @@ export function Navbar() {
               trackServerEvent("generate_lead");
             }}
           >
-            Get a free website concept
+            See your website concept
           </a>
         </Button>
       </div>
